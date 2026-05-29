@@ -98,10 +98,10 @@ import RoomDetailsPage from './pages/RoomDetailsPage';
 import AdminDashboard from './pages/AdminDashboard';
 import ProtectedRoute from './components/ProtectedRoute';
 import GuestRoute from './components/GuestRoute';
-import AnalyticsPage from './pages/AnalyticsPage';
-import ReceptionistDashboard from './pages/ReceptionistDashboard';
-import UserSettingsPage from "./pages/UserSettingsPage";
-import StaffRoomDashboard from "./pages/Staffroomdashboard"; 
+import AnalyticsPage from './pages/Analyticspage';
+import ReceptionistDashboard from './pages/Receptionistdashboard';
+import UserSettingsPage from "./pages/Usersettingspage";
+import StaffRoomDashboard from "./pages/StaffRoomDashboard";
 
 function App() {
   return (
