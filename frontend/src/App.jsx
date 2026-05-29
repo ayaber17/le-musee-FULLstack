@@ -101,7 +101,7 @@ import GuestRoute from './components/GuestRoute';
 import AnalyticsPage from './pages/AnalyticsPage';
 import ReceptionistDashboard from './pages/ReceptionistDashboard';
 import UserSettingsPage from "./pages/UserSettingsPage";
-import StaffRoomDashboard from "./pages/Staffroomdashboard"; 
+import StaffRoomDashboard from "./pages/StaffRoomDashboard"; 
 
 function App() {
   return (
