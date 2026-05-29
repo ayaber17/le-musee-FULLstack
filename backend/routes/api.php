@@ -124,5 +124,17 @@ Route::middleware('auth:sanctum')->group(function () {
 use Illuminate\Support\Facades\DB;
 
 Route::get('/test-db', function () {
-    return DB::connection()->getPdo();
+    try {
+        DB::connection()->getPdo();
+        return response()->json([
+            'status' => 'success',
+            'message' => 'L-Connexion khdama m9adda m3a MySQL!'
+        ]);
+    } catch (\Exception $e) {
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Had l-moshkil 3lash makatbghish t-konnekta:',
+            'error_details' => $e->getMessage()
+        ], 500);
+    }
 });
