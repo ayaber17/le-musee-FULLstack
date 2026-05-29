@@ -17,7 +17,7 @@ import AnalyticsPage from './pages/AnalyticsPage';
 import ReceptionistDashboard from './pages/ReceptionistDashboard';
 import SettingsPage from "./pages/SettingsPage";
 import UserSettingsPage from "./pages/UserSettingsPage";
-import StaffRoomDashboard from "./pages/Staffroomdashboard";
+import StaffRoomDashboard from "./pages/StaffRoomDashboard";
 
 function App() {
   return (
