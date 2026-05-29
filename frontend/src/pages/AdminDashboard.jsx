@@ -701,7 +701,7 @@ import {
     Star, Users, LogOut, RefreshCw, TrendingUp
 } from 'lucide-react';
 import api from '../api';
-import AnalyticsPage from './AnalyticsPage';
+import AnalyticsPage from './Analyticspage';
 
 // ─── Status Badge ─────────────────────────────────────────────────────────────
 const StatusBadge = ({ status }) => {
