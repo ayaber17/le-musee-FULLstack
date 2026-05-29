@@ -120,3 +120,9 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::delete('settings/{key}',  [SettingController::class, 'destroy']);
         });
 });
+
+use Illuminate\Support\Facades\DB;
+
+Route::get('/test-db', function () {
+    return DB::connection()->getPdo();
+});
