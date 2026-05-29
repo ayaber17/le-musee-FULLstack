@@ -98,17 +98,13 @@ import RoomDetailsPage from './pages/RoomDetailsPage';
 import AdminDashboard from './pages/AdminDashboard';
 import ProtectedRoute from './components/ProtectedRoute';
 import GuestRoute from './components/GuestRoute';
-<<<<<<< HEAD
 import AnalyticsPage from './pages/AnalyticsPage';
 import ReceptionistDashboard from './pages/ReceptionistDashboard';
 import UserSettingsPage from "./pages/UserSettingsPage";
 import StaffRoomDashboard from "./pages/StaffRoomDashboard"; 
-=======
-import AnalyticsPage from './pages/Analyticspage';
-import ReceptionistDashboard from './pages/Receptionistdashboard';
-import UserSettingsPage from "./pages/Usersettingspage";
-import StaffRoomDashboard from "./pages/StaffRoomDashboard";
->>>>>>> ac32befaec6f69c905027140732db29ec0dc2e20
+import Analyticspage from './pages/Analyticspage';
+import Receptionistdashboard from './pages/Receptionistdashboard';
+import Usersettingspage from "./pages/Usersettingspage";
 
 function App() {
   return (
@@ -122,14 +118,14 @@ function App() {
         <Route path="contact" element={<ContactPage />} />
         <Route path="gallery" element={<RoomsGallery />} />
         <Route path="leave-review/:id" element={<LeaveReview />} />
-        <Route path="settings" element={<ProtectedRoute><UserSettingsPage /></ProtectedRoute>} />
+        <Route path="settings" element={<ProtectedRoute><Usersettingspage /></ProtectedRoute>} />
         <Route path="auth" element={<GuestRoute><AuthPage /></GuestRoute>} />
         <Route path="profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
       </Route>
       <Route path="admin" element={<ProtectedRoute roleRequired="admin"><AdminDashboard /></ProtectedRoute>}>
-        <Route path="analytics" element={<AnalyticsPage />} />
+        <Route path="analytics" element={<Analyticspage />} />
       </Route>
-      <Route path="reception" element={<ProtectedRoute roleRequired="staff"><ReceptionistDashboard /></ProtectedRoute>} />
+      <Route path="reception" element={<ProtectedRoute roleRequired="staff"><Receptionistdashboard /></ProtectedRoute>} />
       <Route path="staff/rooms" element={<ProtectedRoute roleRequired="staff"><StaffRoomDashboard /></ProtectedRoute>} />
     </Routes>
   );
