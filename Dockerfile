@@ -1,16 +1,22 @@
-FROM php:8.4-cli
+FROM php:8.4-apache
 
 RUN apt-get update && apt-get install -y \
-    unzip git curl zip \
-    libpng-dev libonig-dev libxml2-dev
+    libpng-dev libonig-dev libxml2-dev zip unzip git curl
 
 RUN docker-php-ext-install pdo_mysql mbstring bcmath
 
+RUN a2enmod rewrite
+
+ENV APACHE_DOCUMENT_ROOT /var/www/html/public
+RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
+RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf
+
+WORKDIR /var/www/html
+COPY backend/ .
+
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
-
-WORKDIR /app
-COPY backend/ /app
-
 RUN composer install --no-dev --optimize-autoloader
 
-CMD sh -c "php artisan migrate --force && php artisan config:cache && php -S 0.0.0.0:$PORT -t public"
+RUN chown -R www-data:www-data storage bootstrap/cache
+
+CMD sh -c "php artisan migrate --force && apache2-foreground"
