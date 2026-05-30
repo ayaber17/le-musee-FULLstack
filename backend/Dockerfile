@@ -30,7 +30,7 @@ RUN apt-get update && apt-get install -y \
     && apt-get clean
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 WORKDIR /app
-COPY backend/ .
+COPY . .
 RUN composer install --no-dev --optimize-autoloader
 RUN mkdir -p storage/logs storage/framework/cache storage/framework/sessions storage/framework/views bootstrap/cache \
     && chmod -R 777 storage bootstrap/cache
