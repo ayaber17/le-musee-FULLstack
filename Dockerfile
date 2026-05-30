@@ -13,4 +13,4 @@ COPY backend/ /app
 
 RUN composer install --no-dev --optimize-autoloader
 
-CMD sh -c "php artisan migrate --force && php -S 0.0.0.0:$PORT -t public"
+CMD sh -c "php artisan migrate --force && php artisan config:cache && php -S 0.0.0.0:$PORT -t public"
