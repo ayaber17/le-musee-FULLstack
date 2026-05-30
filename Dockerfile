@@ -21,4 +21,4 @@ RUN composer install --no-dev --optimize-autoloader
 RUN mkdir -p storage/logs storage/framework/cache storage/framework/sessions storage/framework/views bootstrap/cache \
     && chown -R www-data:www-data storage bootstrap/cache
 
-CMD sh -c "php artisan migrate --force && apache2-foreground"
+CMD sh -c "php artisan migrate --force && sed -i 's/80/${PORT}/g' /etc/apache2/sites-available/000-default.conf /etc/apache2/ports.conf && apache2-foreground"
