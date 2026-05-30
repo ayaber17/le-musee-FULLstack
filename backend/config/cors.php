@@ -19,16 +19,16 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['https://le-musee-ful-lstack-xo2x.vercel.app'],
-
-    'allowed_origins_patterns' => [],
-
+'allowed_origins' => [],
+'allowed_origins_patterns' => [
+    '#^https://le-musee-ful-lstack.*\.vercel\.app$#',
+],
     'allowed_headers' => ['*'],
 
     'exposed_headers' => [],
 
     'max_age' => 0,
-    
+
     'supports_credentials' => true,
 
 
