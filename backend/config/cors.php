@@ -19,12 +19,14 @@ return [
 
     'allowed_methods' => ['*'],
 
-'allowed_origins' => [],
+'allowed_origins' => array_filter([
+    env('FRONTEND_URL'),
+    'https://le-musee-ful-lstack-xo2x-6udvwc08c-aya-s-hotel17.vercel.app',
+]),
 
 'allowed_origins_patterns' => [
     '#^https://le-musee-ful-lstack.*\.vercel\.app$#',
-],
-    'allowed_headers' => ['*'],
+],    'allowed_headers' => ['*'],
 
     'exposed_headers' => [],
 
