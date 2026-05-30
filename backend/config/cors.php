@@ -20,6 +20,7 @@ return [
     'allowed_methods' => ['*'],
 
 'allowed_origins' => [],
+
 'allowed_origins_patterns' => [
     '#^https://le-musee-ful-lstack.*\.vercel\.app$#',
 ],
