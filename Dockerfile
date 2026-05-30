@@ -23,7 +23,7 @@
 
 # CMD sh -c "php artisan migrate --force 2>&1 && php -S 0.0.0.0:$PORT -t public public/router.php"
 
-FROM dunglas/frankenphp
+FROM php:8.4-cli
 
 RUN apt-get update && apt-get install -y \
     libpng-dev libonig-dev libxml2-dev zip unzip git curl \
@@ -38,8 +38,8 @@ COPY . .
 RUN composer install --no-dev --optimize-autoloader
 
 RUN mkdir -p storage/logs storage/framework/cache storage/framework/sessions storage/framework/views bootstrap/cache \
-    && chmod -R 775 storage bootstrap/cache
+    && chmod -R 777 storage bootstrap/cache
 
-ENV SERVER_NAME=":80"
+EXPOSE 8080
 
-CMD ["sh", "-c", "php artisan config:clear && php artisan migrate --force && frankenphp run --config /etc/caddy/Caddyfile"]
+CMD ["sh", "-c", "php artisan config:clear && php artisan migrate --force && php -S 0.0.0.0:${PORT:-8080} -t public public/router.php"]
