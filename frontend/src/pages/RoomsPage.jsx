@@ -10,7 +10,7 @@
 //     const [loading, setLoading] = useState(true);
 //     const [selectedRoom, setSelectedRoom] = useState(null);
 //     const [modalOpen, setModalOpen] = useState(false);
-    
+
 //     const location = useLocation();
 //     const navigate = useNavigate();
 //     const searchParams = new URLSearchParams(location.search);
@@ -112,7 +112,7 @@
 //                                 <p className="text-sm text-gray-500 leading-relaxed font-light mb-6 max-w-md italic">
 //                                     {room.description}
 //                                 </p>
-                                
+
 //                                 {/* Room Amenities */}
 //                                 <div className="flex gap-6 text-gray-400 mb-8">
 //                                     <div className="flex items-center gap-2">
@@ -171,7 +171,7 @@ import axios from 'axios';
 import BookingModal from "../components/BookingModal";
 
 // ─── Config ───────────────────────────────────────────────────────────────────
-const API_BASE = import.meta.env.VITE_API_URL + '/api';
+const API_BASE = import.meta.env.VITE_API_URL;
 
 const roomImages = {
     1: "/images/ch1.webp",
@@ -200,15 +200,15 @@ const tomorrow = () => {
 
 // ─── Component ────────────────────────────────────────────────────────────────
 const RoomsPage = () => {
-    const [roomTypes, setRoomTypes]     = useState([]);
+    const [roomTypes, setRoomTypes] = useState([]);
     const [availability, setAvailability] = useState({}); // { [roomTypeId]: { available: bool, nextRoom: obj|null } }
     const [loadingTypes, setLoadingTypes] = useState(true);
     const [loadingAvail, setLoadingAvail] = useState(false);
     const [selectedRoom, setSelectedRoom] = useState(null);
-    const [modalOpen, setModalOpen]     = useState(false);
+    const [modalOpen, setModalOpen] = useState(false);
 
     // Date filter state
-    const [checkIn,  setCheckIn]  = useState('');
+    const [checkIn, setCheckIn] = useState('');
     const [checkOut, setCheckOut] = useState('');
     const [datesApplied, setDatesApplied] = useState(false);
 
@@ -240,8 +240,8 @@ const RoomsPage = () => {
             data.forEach(item => {
                 map[item.room_type_id] = {
                     available: item.available_count > 0,
-                    room:      item.next_available_room ?? null,
-                    count:     item.available_count,
+                    room: item.next_available_room ?? null,
+                    count: item.available_count,
                 };
             });
             setAvailability(map);
@@ -377,9 +377,9 @@ const RoomsPage = () => {
             {/* ── Rooms Grid ── */}
             <div className="max-w-7xl mx-auto px-8 grid grid-cols-1 md:grid-cols-2 gap-16">
                 {filteredTypes.map((roomType, index) => {
-                    const avail        = availability[roomType.id];
+                    const avail = availability[roomType.id];
                     const isUnavailable = datesApplied && avail && !avail.available;
-                    const isAvailable   = datesApplied && avail && avail.available;
+                    const isAvailable = datesApplied && avail && avail.available;
 
                     return (
                         <motion.div
