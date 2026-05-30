@@ -1,24 +1,45 @@
-FROM php:8.4-apache
+# FROM php:8.4-apache
+
+# RUN apt-get update && apt-get install -y \
+#     libpng-dev libonig-dev libxml2-dev zip unzip git curl
+
+# RUN docker-php-ext-install pdo_mysql mbstring bcmath
+
+# RUN a2enmod rewrite
+# RUN sed -i 's/AllowOverride None/AllowOverride All/g' /etc/apache2/apache2.conf
+
+# ENV APACHE_DOCUMENT_ROOT /var/www/html/public
+# RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
+# RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf
+
+# WORKDIR /var/www/html
+# COPY . .
+
+# COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+# RUN composer install --no-dev --optimize-autoloader
+
+# RUN mkdir -p storage/logs storage/framework/cache storage/framework/sessions storage/framework/views bootstrap/cache \
+#     && chown -R www-data:www-data storage bootstrap/cache
+
+# CMD sh -c "php artisan migrate --force 2>&1 && php -S 0.0.0.0:$PORT -t public public/router.php"
+
+FROM dunglas/frankenphp
 
 RUN apt-get update && apt-get install -y \
-    libpng-dev libonig-dev libxml2-dev zip unzip git curl
-
-RUN docker-php-ext-install pdo_mysql mbstring bcmath
-
-RUN a2enmod rewrite
-RUN sed -i 's/AllowOverride None/AllowOverride All/g' /etc/apache2/apache2.conf
-
-ENV APACHE_DOCUMENT_ROOT /var/www/html/public
-RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
-RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf
-
-WORKDIR /var/www/html
-COPY . .
+    libpng-dev libonig-dev libxml2-dev zip unzip git curl \
+    && docker-php-ext-install pdo_mysql mbstring bcmath \
+    && apt-get clean
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+WORKDIR /app
+COPY . .
+
 RUN composer install --no-dev --optimize-autoloader
 
 RUN mkdir -p storage/logs storage/framework/cache storage/framework/sessions storage/framework/views bootstrap/cache \
-    && chown -R www-data:www-data storage bootstrap/cache
+    && chmod -R 775 storage bootstrap/cache
 
-CMD sh -c "php artisan config:clear && php artisan route:clear && php artisan migrate --force && php -S 0.0.0.0:$PORT -t public public/router.php"
+ENV SERVER_NAME=":80"
+
+CMD ["sh", "-c", "php artisan config:clear && php artisan migrate --force && frankenphp run --config /etc/caddy/Caddyfile"]
